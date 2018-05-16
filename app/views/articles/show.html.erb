@@ -20,18 +20,18 @@
 </article>
 <hr>
 <div class="col-md-12">
-  <%= form_for [@article, @comment],
+  <%= form_for [@article, @comment], remote: true,
       :html => {class: "form-horizontal", role: "form"} do |f| %>
-    <% if @comment.errors_any? %>
+    <% if @comment.errors.any? %>
       <div class="panel panel-danger col-md-offset-1">
         <div class="panel-heading">
           <h2 class="panel-title">
             <%= pluralize(@comment.errors.count, "error") %>
-            prihibited this comment from being saved:
+            prohibited this comment from being saved:
           </h2>
           <div class="panel-body">
             <ul>
-              <% @comment.errors.full_messsages.each do |msg| %>
+              <% @comment.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
               <% end %>
             </ul>
@@ -63,19 +63,21 @@
 
   <div class="col-md-10">
     <% if @article.comments.any? %>
-      <% persisted_commnets(@comments).each do |comment| %>
-        <div class="comment-body">
-          <%= comments.body %>
-        </div>
+      <div id="messages">
+        <% persisted_comments(@comments).each do |comment| %>
+          <div class="comment-body">
+            <%= comment.body %>
+          </div>
 
-        <div class="comment-time">
-          <%= time_ago_in_words(comment.created_at) %>
-          ago by <%= comment.user.email %>
-        </div>
-      <hr>
-      <% end %>
+          <div class="comment-time">
+            <%= time_ago_in_words(comment.created_at) %>
+            ago by <%= comment.user.email %>
+          </div>
+        <hr>
+        <% end %>
+      </div>
     <% else %>
-    There are no comments to show.
+      There are no comments to show.
     <% end %>
   </div>
 </div>

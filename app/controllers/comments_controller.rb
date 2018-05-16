@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
     @comment.user = current_user
 
     if @comment.save
-      flash[:notice] = "Comments has been created"
+      flash[:notice] = "Comment has been created"
     else
       flash.now[:alert] = "Comment has not been created"
     end

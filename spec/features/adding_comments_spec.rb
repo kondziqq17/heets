@@ -4,7 +4,7 @@ RSpec.feature "Adding reviews to Articles" do
   before do
     @john = User.create(email: "john@exmaple.com", password: "password")
     @fred = User.create(email: "fred@exmaple.com", password: "password")
-    @article = Article.create!(title: "Title One", body: "Body of article one")
+    @article = Article.create!(title: "Title One", body: "Body of article one", user: @john)
   end
 
   scenario "permits a signed in user to write a review" do
